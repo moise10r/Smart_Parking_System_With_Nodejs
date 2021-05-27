@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const { isSuperAdmin } = require("../middlewares/auth");
 
-router.post("/api/admin", [isSuperAdmin], async (req, res) => {
+router.post("/api/admin", async (req, res) => {
 	const { name, lastName, email, password, phoneNumber } = req.body;
 	const { error } = validateAdmin(req.body);
 	if (error) {
@@ -25,6 +25,7 @@ router.post("/api/admin", [isSuperAdmin], async (req, res) => {
 		email,
 		password,
 		phoneNumber,
+		isSuperAdmin: true,
 		createdAt: moment(Date.now()).format("LL"),
 	});
 
