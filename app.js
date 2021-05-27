@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const admin = require("./routers/admin");
 const customer = require("./routers/customer");
+const bodyParse = require("body-parser");
 
 dotenv.config({ path: "./config/config.env" });
 connectDB();
@@ -15,6 +16,8 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParse.json());
+app.sue(bodyParse.urlencoded({ extended: true }));
 app.use("/", admin);
 app.use("/", customer);
 
