@@ -5,18 +5,20 @@ const moment = require("moment");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
-const { isSuperAdmin } = require("../middlewares/auth");
+const { verifyToken, isSuperAdmin } = require("../middlewares/auth");
 
-router.post("/api/admin", isSuperAdmin, async (req, res) => {
+router.post("/api/admin", verifyToken, isSuperAdmin, async (req, res) => {
 	const { name, lastName, email, password, phoneNumber } = req.body;
 	const { error } = validateAdmin(req.body);
+	console.log(req.user);
+
 	if (error) {
 		return res.status(400).send(error.details[0].message);
 	}
 	let admin = await Admin.findOne({ email });
 	if (admin) {
 		return res
-			.status(400)
+			.status(404)
 			.send("The amdin with these credentials exists already");
 	}
 	admin = new Admin({
@@ -44,7 +46,7 @@ router.post("/api/admin", isSuperAdmin, async (req, res) => {
 				};
 				const token = jwt.sign(payload, process.env.SECRET_TOKEN_KEY);
 				console.log(token);
-				res
+				return res
 					.status(200)
 					.header("x-auth-token", token)
 					.send(_.pick(payload, ["_id", "name", "email", "phoneNumber"]));
