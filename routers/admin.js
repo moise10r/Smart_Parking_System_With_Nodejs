@@ -6,8 +6,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const { verifyToken, isSuperAdmin } = require("../middlewares/auth");
+const dotenv = require("dotenv");
 
-router.post("/api/admin", verifyToken, async (req, res) => {
+dotenv.config({
+	path: "../config/config.env",
+});
+router.post("/api/admin", async (req, res) => {
 	const { name, lastName, email, password, phoneNumber } = req.body;
 	const { error } = validateAdmin(req.body);
 	console.log(req.user);
