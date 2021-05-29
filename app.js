@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParse.json());
-app.sue(bodyParse.urlencoded({ extended: true }));
+app.use(bodyParse.urlencoded({ extended: true }));
 app.use("/", admin);
 app.use("/", customer);
 
