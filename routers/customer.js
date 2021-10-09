@@ -3,8 +3,8 @@ const { Customer, validateCustomer } = require("../models/customer");
 const router = express.Router();
 const moment = require("moment");
 const { verifyToken, isAdmin} = require("../middlewares/auth");
-
-router.post("/api/customer",[verifyToken], async (req, res) => {
+// [verifyToken],
+router.post("/api/customer", async (req, res) => {
 	const { name, cardId, carMark, plateNumber, phoneNumber } = req.body;
 	const { error } = validateCustomer(req.body);
 	if (error) {
