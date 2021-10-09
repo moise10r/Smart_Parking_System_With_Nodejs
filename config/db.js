@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const chalk = require('chalk');
-
 const connectDB = async ()=>{
     try{
         const connecton = mongoose.connect(process.env.MONGO_URI,{

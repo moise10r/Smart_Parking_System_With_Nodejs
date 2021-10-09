@@ -11,10 +11,10 @@ const dotenv = require("dotenv");
 dotenv.config({
 	path: "../config/config.env",
 });
+
 router.post("/api/admin", async (req, res) => {
 	const { name, lastName, email, password, phoneNumber } = req.body;
 	const { error } = validateAdmin(req.body);
-	console.log(req.user);
 
 	if (error) {
 		return res.status(400).send(error.details[0].message);

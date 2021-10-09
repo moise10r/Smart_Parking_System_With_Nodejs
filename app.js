@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const admin = require("./routers/admin");
 const customer = require("./routers/customer");
+const auth = require("./controllers/auth");
 
 dotenv.config({ path: "./config/config.env" });
 connectDB();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", admin);
 app.use("/", customer);
+app.use("/", auth);
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
