@@ -97,9 +97,4 @@ router.delete("/api/admin/:id", [verifyToken, isSuperAdmin], async (req, res) =>
 		});
 });
 
-router.get("/api/customer",[verifyToken], async (req, res) => {
-	const customers = await Customer.find();
-	if (!customers) return res.send(404).send("there is no customer");
-	res.send(customers).status(200);
-});
 module.exports = router;
