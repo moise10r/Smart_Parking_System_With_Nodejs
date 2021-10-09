@@ -11,8 +11,8 @@ const dotenv = require("dotenv");
 dotenv.config({
 	path: "../config/config.env",
 });
-
-router.post("/api/admin", [verifyToken, isSuperAdmin], async (req, res) => {
+// [verifyToken, isSuperAdmin]
+router.post("/api/admin", async (req, res) => {
 	const { name, lastName, email, password, phoneNumber } = req.body;
 	const { error } = validateAdmin(req.body);
 
