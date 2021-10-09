@@ -2,8 +2,9 @@ const express = require("express");
 const { Customer, validateCustomer } = require("../models/customer");
 const router = express.Router();
 const moment = require("moment");
-const { isSuperAdmin, verifyToken } = require("../middlewares/auth");
-router.post("/api/customer", async (req, res) => {
+const { verifyToken, isAdmin} = require("../middlewares/auth");
+
+router.post("/api/customer",[verifyToken], async (req, res) => {
 	const { name, cardId, carMark, plateNumber, phoneNumber } = req.body;
 	const { error } = validateCustomer(req.body);
 	if (error) {
@@ -31,7 +32,7 @@ router.post("/api/customer", async (req, res) => {
 	}
 });
 
-router.delete("/api/customer/:id", async (req, res) => {
+router.delete("/api/customer/:id",[verifyToken], async (req, res) => {
 	const customer = await Customer.findOneAndDelete({ _id: req.params.id });
 	if (!customer)
 		return res.status(400).send("There is no a customer with that ID");
@@ -66,7 +67,7 @@ router.put("/api/customer/:id", async (req, res) => {
 	);
 });
 
-router.get("/api/customer", async (req, res) => {
+router.get("/api/customer",[verifyToken],async (req, res) => {
 	const customers = await Customer.find();
 	if (!customers) return res.send(404).send("there is no customer");
 	res.send(customers).status(200);

@@ -11,7 +11,7 @@ exports.verifyToken = (req, res, next) => {
 		if (err)
 			return res
 				.status(400)
-				.json({ success: false, message: "token is invalid" });
+				.send('You are not allowed to perform this action')
 		req.user = decoded;
 		next();
 	});
@@ -22,3 +22,4 @@ exports.isSuperAdmin = (req, res, next) => {
 	}
 	return res.status(400).send("You are not permitted to do this action");
 };
+

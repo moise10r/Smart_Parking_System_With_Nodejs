@@ -5,14 +5,14 @@ const moment = require("moment");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
-const { verifyToken, isSuperAdmin } = require("../middlewares/auth");
+const { verifyToken, isSuperAdmin} = require("../middlewares/auth");
 const dotenv = require("dotenv");
 
 dotenv.config({
 	path: "../config/config.env",
 });
 
-router.post("/api/admin", async (req, res) => {
+router.post("/api/admin", [verifyToken, isSuperAdmin], async (req, res) => {
 	const { name, lastName, email, password, phoneNumber } = req.body;
 	const { error } = validateAdmin(req.body);
 
@@ -85,7 +85,7 @@ router.put("/api/admin/:id", async (req, res) => {
 	);
 });
 
-router.delete("/api/admin/:id", [isSuperAdmin], async (req, res) => {
+router.delete("/api/admin/:id", [verifyToken, isSuperAdmin], async (req, res) => {
 	await Admin.deleteOne({ _id: req.params.id })
 		.then(() => {
 			res.status(200).json("The admin has been deleted successfully");
@@ -97,7 +97,7 @@ router.delete("/api/admin/:id", [isSuperAdmin], async (req, res) => {
 		});
 });
 
-router.get("/api/customer", [isSuperAdmin], async (req, res) => {
+router.get("/api/customer",[verifyToken], async (req, res) => {
 	const customers = await Customer.find();
 	if (!customers) return res.send(404).send("there is no customer");
 	res.send(customers).status(200);
