@@ -10,6 +10,7 @@ router.post("/api/customer", async (req, res) => {
 	if (error) {
 		return res.status(400).send(error.details[0].message);
 	}
+	let customers = await Customer.find();
 	let customer = await Customer.findOne({ $or: [{ plateNumber }, { cardId }] });
 	if (customer) {
 		return res
@@ -19,6 +20,7 @@ router.post("/api/customer", async (req, res) => {
 	customer = new Customer({
 		name,
 		cardId,
+		index: customers.length + 1,
 		carMark,
 		plateNumber,
 		phoneNumber,

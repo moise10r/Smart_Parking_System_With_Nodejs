@@ -6,6 +6,10 @@ const customerSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	index: {
+		type: String,
+		required: true,
+	},
 	cardId: {
 		type: String,
 		required: true,
@@ -26,6 +30,7 @@ const customerSchema = new mongoose.Schema({
 function validateCustomer(customer) {
 	const schema = Joi.object().keys({
 		name: Joi.string().min(2).max(50).required(),
+		index: Joi.string(),
 		cardId: Joi.string().required(),
 		carMark: Joi.string().required(),
 		plateNumber: Joi.string().required(),
