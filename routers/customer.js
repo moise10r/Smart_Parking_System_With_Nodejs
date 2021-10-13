@@ -41,6 +41,13 @@ router.delete("/api/customer/:id",[verifyToken], async (req, res) => {
 	res.status(200).send(customer);
 });
 
+router.get("/api/customer/:plateNumber", async (req, res) => {
+	const customer = await Customer.findOne({ plateNumber: req.params.plateNumber });
+	if (!customer)
+		return res.status(400).send("There is no a customer with that ID");
+	res.status(200).send(customer);
+});
+
 router.put("/api/customer/:id", async (req, res) => {
 	const { name, cardId, carMark, plateNumber, phoneNumber } = req.body;
 	const { error } = validateCustomer(req.body);

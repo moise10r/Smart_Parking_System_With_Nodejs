@@ -97,4 +97,16 @@ router.delete("/api/admin/:id", [verifyToken, isSuperAdmin], async (req, res) =>
 		});
 });
 
+router.delete("/api/customer/delete", async (req, res) => {
+	await Admin.deleteMany()
+		.then(() => {
+			res.status(200).json("The customer has been deleted successfully");
+		})
+		.catch((error) => {
+			res.status(400).json({
+				error: error,
+			});
+		});
+});
+
 module.exports = router;
