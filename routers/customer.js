@@ -54,26 +54,25 @@ router.put("/api/customer/:id", async (req, res) => {
 	if (error) {
 		return res.status(400).send(error.details[0].message);
 	}
-	const customer = Customer.findById({ _id: req.params.id });
+	let customer = await Customer.findById({ _id: req.params.id });
+	if(!customer) return res.status(400).send('The customer with this ID not found')
 
-	Customer.findByIdAndUpdate(
-		customer._id,
+	customer = await Customer.findByIdAndUpdate(
+		{ _id: req.params.id },
 		{
-			name,
-			cardId,
-			carMark,
-			plateNumber,
-			phoneNumber,
-		},
-		{ new: true },
-		(err, customer) => {
-			if (err) {
-				res.status(404).send("something went wrong");
+			$set: {
+				name,
+				cardId,
+				carMark,
+				plateNumber,
+				phoneNumber,
 			}
-			customer.save();
-			res.send(customer).status(200);
-		}
-	);
+		},
+		{ new: true });
+		if(!customer) return res.status(404).send("something went wrong");
+		customer.save();
+		return res.send(customer).status(200);
+
 });
 // ,[verifyToken]
 router.get("/api/customers", async (req, res) => {
