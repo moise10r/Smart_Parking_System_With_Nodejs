@@ -76,7 +76,7 @@ router.put("/api/customer/:id", async (req, res) => {
 	);
 });
 // ,[verifyToken]
-router.get("/api/customer", async (req, res) => {
+router.get("/api/customers", async (req, res) => {
 	const customers = await Customer.find();
 	if (!customers) return res.send(404).send("there is no customer");
 	res.send(customers).status(200);
