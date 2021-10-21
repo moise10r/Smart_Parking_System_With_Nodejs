@@ -34,7 +34,7 @@ router.post("/api/customer", async (req, res) => {
 	}
 });
 
-router.delete("/api/customer/:id",[verifyToken], async (req, res) => {
+router.delete("/api/customer/:id", async (req, res) => {
 	const customer = await Customer.findOneAndDelete({ _id: req.params.id });
 	if (!customer)
 		return res.status(400).send("There is no a customer with that ID");
