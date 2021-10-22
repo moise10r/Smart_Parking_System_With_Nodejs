@@ -44,7 +44,7 @@ router.delete("/api/customer/:id", async (req, res) => {
 router.get("/api/customer", async (req, res) => {
 	const customer = await Customer.findOne({ plateNumber: req.query.plateNumber });
 	if (!customer)
-		return res.status(400).send("There is no a customer with that ID");
+		return res.status(400).send("There is no a customer with that plateNumber");
 	res.status(200).send(customer);
 });
 
