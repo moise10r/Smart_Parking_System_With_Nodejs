@@ -48,6 +48,14 @@ router.get("/api/customer", async (req, res) => {
 	res.status(200).send(customer);
 });
 
+
+router.get("/api/customer", async (req, res) => {
+	const customer = await Customer.findOne({ cardId: req.query.cardId });
+	if (!customer)
+		return res.status(400).send("There is no a customer with that plateNumber");
+	res.status(200).send(customer);
+});
+
 router.get("/api/customer/", async (req, res) => {
 	const customer = await Customer.findOne({ plateNumber: req.query.plateNumber });
 	if (!customer)
