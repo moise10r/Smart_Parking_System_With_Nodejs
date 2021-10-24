@@ -26,6 +26,10 @@ const customerSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	state: {
+		type: Boolean,
+		default: false,
+	}
 });
 function validateCustomer(customer) {
 	const schema = Joi.object().keys({
@@ -34,6 +38,7 @@ function validateCustomer(customer) {
 		cardId: Joi.string().required(),
 		carMark: Joi.string().required(),
 		plateNumber: Joi.string().required(),
+		state: Joi.boolean(),
 		phoneNumber: Joi.string().required(),
 	});
 	return schema.validate(customer);
