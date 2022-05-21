@@ -31,7 +31,8 @@
     "mongoose": "^5.12.5",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "twilio": "^3.77.1"
   },
   "engines": {
     "node": "14.15.5"
