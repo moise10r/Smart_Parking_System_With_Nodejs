@@ -97,4 +97,23 @@ router.get("/api/customers", async (req, res) => {
 	if (!customers) return res.send(404).send("there is no customer");
 	res.send(customers).status(200);
 });
+
+
+router.post("/api/sendAlert", async (req, res) => {
+	const { cNumber } = req.body;
+
+	const accountSid = process.env.ACCOUNT_SID;
+	const authToken = process.env.AUTH_TOKEN;
+
+	const client = require('twilio')(accountSid, authToken);
+
+	client.messages
+	.create({
+		body: 'Hello from Parkingo, It seems like your car is blocking the parking, you have 3 seconds to move it to not be slapped',
+		from: '+15156057424',
+		to: cNumber
+	}) 
+	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`));
+});
+
 module.exports = router;
