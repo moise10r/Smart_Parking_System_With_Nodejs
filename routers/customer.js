@@ -105,7 +105,7 @@ router.post("/api/sendAlert", async (req, res) => {
 	const accountSid = process.env.ACCOUNT_SID;
 	const authToken = process.env.AUTH_TOKEN;
 
-	const client = require('twilio')(accountSid, authToken);
+	// const client = require('twilio')(accountSid, authToken);
 
 	// client.messages
 	// 	.create({
@@ -115,7 +115,7 @@ router.post("/api/sendAlert", async (req, res) => {
 	// 	})
 	// 	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`))
 	// 	.catch((err) => res.send('err',err));
-	return res.send('ok',cNumber)
+	return res.send('okn',cNumber)
 });
 
 module.exports = router;
