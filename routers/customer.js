@@ -115,7 +115,7 @@ router.post("/api/sendAlert", async (req, res) => {
 	// 	})
 	// 	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`))
 	// 	.catch((err) => res.send('err',err));
-	return res.send('okn',cNumber)
+	return res.send(cNumber)
 });
 
 module.exports = router;
