@@ -105,15 +105,14 @@ router.get("/api/customers", async (req, res) => {
 
 router.post("/api/sendAlert", async (req, res) => {
 	const { cNumber } = req.body;
-	// client.messages
-	// 	.create({
-	// 		to: cNumber,
-	// 		from: '+15156057424',
-	// 		body: 'Hello from Parking, It seems like your car is blocking the parking, you have 3 seconds to move it to not be slapped',
-	// 	})
-	// 	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`))
-	// 	.catch((err) => res.send('err' + typeof cNumber));
-		return res.send(typeof cNumber);
+	client.messages
+		.create({
+			to: cNumber,
+			from: '+15156057424',
+			body: 'Hello from Parking, It seems like your car is blocking the parking, you have 3 seconds to move it to not be slapped',
+		})
+		.then(message => console.log(`Alert with id ${message.sid} was sent to ${message.to} successfully`))
+		.catch((err) => console.log('err' + typeof cNumber));
 });
 
 module.exports = router;
