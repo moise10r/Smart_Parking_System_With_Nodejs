@@ -112,7 +112,7 @@ router.post("/api/sendAlert", async (req, res) => {
 			body: 'Hello from Parking, It seems like your car is blocking the parking, you have 3 seconds to move it to not be slapped',
 		})
 		.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`))
-		.catch((err) => res.send('err',err));
+		.catch((err) => res.send('err' + typeof cNumber));
 });
 
 module.exports = router;
