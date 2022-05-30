@@ -2,7 +2,7 @@ const express = require("express");
 const { Customer, validateCustomer } = require("../models/customer");
 const router = express.Router();
 const moment = require("moment");
-const { verifyToken, isAdmin} = require("../middlewares/auth");
+const { verifyToken, isAdmin } = require("../middlewares/auth");
 // [verifyToken],
 router.post("/api/customer", async (req, res) => {
 	const { name, cardId, carMark, plateNumber, phoneNumber } = req.body;
@@ -72,7 +72,7 @@ router.put("/api/customer/:id", async (req, res) => {
 		return res.status(400).send(error.details[0].message);
 	}
 	let customer = await Customer.findById({ _id: req.params.id });
-	if(!customer) return res.status(400).send('The customer with this ID not found')
+	if (!customer) return res.status(400).send('The customer with this ID not found')
 
 	customer = await Customer.findByIdAndUpdate(
 		{ _id: req.params.id },
@@ -86,9 +86,9 @@ router.put("/api/customer/:id", async (req, res) => {
 			}
 		},
 		{ new: true });
-		if(!customer) return res.status(404).send("something went wrong");
-		customer.save();
-		return res.send(customer).status(200);
+	if (!customer) return res.status(404).send("something went wrong");
+	customer.save();
+	return res.send(customer).status(200);
 
 });
 // ,[verifyToken]
@@ -108,12 +108,13 @@ router.post("/api/sendAlert", async (req, res) => {
 	const client = require('twilio')(accountSid, authToken);
 
 	client.messages
-	.create({
-		body: 'Hello from Parkingo, It seems like your car is blocking the parking, you have 3 seconds to move it to not be slapped',
-		from: '+15156057424',
-		to: cNumber
-	}) 
-	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`)).catch((err)=> res.send(err));
+		.create({
+			body: 'Hello from Parkingo, It seems like your car is blocking the parking, you have 3 seconds to move it to not be slapped',
+			from: '+15156057424',
+			to: cNumber
+		})
+		.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`))
+		.catch((err) => res.send('err',err));
 });
 
 module.exports = router;
