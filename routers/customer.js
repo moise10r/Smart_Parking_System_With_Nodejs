@@ -113,7 +113,7 @@ router.post("/api/sendAlert", async (req, res) => {
 		from: '+15156057424',
 		to: cNumber
 	}) 
-	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`));
+	.then(message => res.send(`Alert with id ${message.sid} was sent to ${message.to} successfully`)).catch((err)=> res.send(err));
 });
 
 module.exports = router;
