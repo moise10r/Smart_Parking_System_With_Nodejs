@@ -104,6 +104,7 @@ router.get("/api/customers", async (req, res) => {
 
 router.get("/api/sendAlert/:cNumber", async (req, res) => {
 	const { cNumber } = req.query;
+	console.log(cNumber);
 	const accountSid = process.env.ACCOUNT_SID;
 	const authToken = process.env.AUTH_TOKEN;
 	const client = require('twilio')(accountSid, authToken);
