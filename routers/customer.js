@@ -102,7 +102,7 @@ router.get("/api/customers", async (req, res) => {
 });
 
 
-router.get("/api/sendAlert/:cNumber", async (req, res) => {
+router.get("/api/sendAlert", async (req, res) => {
 	const { cNumber } = req.query;
 	console.log(cNumber);
 	const accountSid = process.env.ACCOUNT_SID;
