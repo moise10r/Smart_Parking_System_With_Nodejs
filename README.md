@@ -1,5 +1,5 @@
 
-# Smart parking API
+# Smart parking API.
 
 
 ## Built With
